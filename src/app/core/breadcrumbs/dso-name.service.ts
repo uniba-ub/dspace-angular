@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { hasValue, isEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { MetadataValue } from '../shared/metadata.models';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
@@ -36,14 +37,36 @@ export class DSONameService {
       }
     },
     OrgUnit: (dso: DSpaceObject): string => {
-      return dso.firstMetadataValue('organization.legalName') || dso.firstMetadataValue('dc.title');
+      return dso.firstMetadataValue('organization.legalName') || this.multilingualTitle(dso, 'dc.title') || dso.firstMetadataValue('dc.title');
     },
     Default: (dso: DSpaceObject): string => {
+        
       // If object doesn't have dc.title metadata use name property
-      return dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
+      return this.multilingualTitle(dso, 'dc.title') || dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
     }
   };
-
+  /*
+  * returns the first matching entry in the current locale or the first value.
+  */
+  multilingualTitle(dso: DSpaceObject, field: string): string {
+        let locale = this.translateService.currentLang;
+            let mvs: MetadataValue[] = dso.allMetadata(field);
+	    //Only one entry, return first value;
+	    if(mvs.length == 1 && mvs[0] != undefined) return mvs[0].value;
+	    for(let mv of mvs){
+		    if(mv.language != undefined && mv.language != "" && mv.language.indexOf(locale) == 0){
+	    		//return matching entry
+			return mv.value;
+		    }
+	    }
+        //No matches for language, return first value;
+	if(mvs[0] != undefined){
+	        return mvs[0].value;
+	}else{
+		return undefined;
+	}
+  }
+  
   /**
    * Get the name for the given {@link DSpaceObject}
    *
