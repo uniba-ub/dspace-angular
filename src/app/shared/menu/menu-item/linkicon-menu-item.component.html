@@ -1,0 +1,10 @@
+<a class="nav-item nav-link"
+   [ngClass]="{ 'disabled': !hasLink }"
+   [attr.aria-disabled]="!hasLink"
+   [title]="item.text | translate"
+   [routerLink]="getRouterLink()"
+   (click)="$event.stopPropagation()"
+   (keyup.space)="navigate($event)"
+   (keyup.enter)="navigate($event)"
+   href="javascript:void(0);"
+><p *ngIf="hasIcon" class="exploreicon" [innerHTML]=icon></p> {{item.text | translate}} </a>

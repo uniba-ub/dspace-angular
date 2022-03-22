@@ -5,6 +5,7 @@ import { MenuService } from '../shared/menu/menu.service';
 import { MenuID, MenuItemType } from '../shared/menu/initial-menus-state';
 import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { LinkIconMenuItemModel } from '../shared/menu/menu-item/models/linkicon.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { BrowseService } from '../core/browse/browse.service';
 import { getFirstSucceededRemoteListPayload } from '../core/shared/operators';
@@ -145,10 +146,11 @@ export class NavbarComponent extends MenuComponent {
               active: false,
               visible: true,
               model: {
-                type: MenuItemType.LINK,
+                type: MenuItemType.LINKICON,
                 text: `menu.section.explore_${section.id}`,
+                icon: `menu.section.icon.explore_${section.id}`,
                 link: `/explore/${section.id}`
-              } as LinkMenuItemModel
+              } as LinkIconMenuItemModel
             };
             this.menuService.addSection(this.menuID, Object.assign(menuSection, {
               shouldPersistOnRouteChange: true

@@ -3244,13 +3244,20 @@
 
   "menu.section.explore_researchoutputs": "Research Outputs",
 
+  "menu.section.icon.explore_researchoutputs": "<span class=\"fa fa-file-alt\"></span>",
+
   "menu.section.explore_researcherprofiles": "People",
+
+  "menu.section.icon.explore_researcherprofiles": "<span class=\"fa fa-users\"></span>",
 
   "menu.section.explore_orgunits": "Organizations",
 
   "menu.section.explore_fundings": "Projects",
 
   "menu.section.explore_fundings_and_projects": "Projects",
+
+  "menu.section.icon.explore_fundings_and_projects": "<span class=\"fa fa-cogs\"></span>",
+
 
   "menu.section.communities_and_collections": "Communities & Collections",
 

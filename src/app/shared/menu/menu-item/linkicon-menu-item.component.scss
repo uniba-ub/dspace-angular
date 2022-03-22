@@ -1,0 +1,39 @@
+
+  .exploreicon {
+  font-size: 200%;
+  text-align:center;
+  }
+  
+  p.exploreicon {
+  margin-bottom: 4px;
+  }
+
+.exploreicon {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
+	text-align:left;
+        float:left;
+        padding-right: 16px;
+        font-size: 133%; 
+
+        p.exploreicon {
+        margin-bottom: 1rem;
+  	}
+        
+	}
+}
+
+.nav-link {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
+	vertical-align:middle;
+        font-size: 133%;    
+        border-bottom: 2px solid white;   
+	}
+}
+
+.nav-link > p {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
+	margin-bottom:4px;
+	vertical-align:middle;
+	}
+}
+

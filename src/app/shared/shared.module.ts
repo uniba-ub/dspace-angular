@@ -169,6 +169,7 @@ import { GenericItemPageFieldComponent } from '../item-page/simple/field-compone
 import { MetadataRepresentationListComponent } from '../item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
 import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
+import { LinkIconMenuItemComponent } from './menu/menu-item/linkicon-menu-item.component';
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { ItemExportComponent } from './item-export/item-export/item-export.component';
@@ -505,6 +506,7 @@ const ENTRY_COMPONENTS = [
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
   LinkMenuItemComponent,
+  LinkIconMenuItemComponent,
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,

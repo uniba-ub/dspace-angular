@@ -12,7 +12,7 @@ export enum MenuID {
  * List of possible MenuItemTypes
  */
 export enum MenuItemType {
-  TEXT, LINK, ALTMETRIC, SEARCH, ONCLICK
+  TEXT, LINK, ALTMETRIC, SEARCH, ONCLICK, LINKICON
 }
 
 /**
