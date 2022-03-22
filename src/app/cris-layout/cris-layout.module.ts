@@ -18,6 +18,7 @@ import { CrisLayoutBoxContainerComponent } from './cris-layout-matrix/cris-layou
 import { RowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/row.component';
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/cris-layout-metadata-box.component';
 import { TextComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/text/text.component';
+import { TextMultilingualComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/textmultilingual/textmultilingual.component';
 import { HeadingComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/heading/heading.component';
 import { CrisLayoutRelationBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/relation/cris-layout-relation-box.component';
 import { MyDSpacePageModule } from '../my-dspace-page/my-dspace-page.module';
@@ -53,6 +54,7 @@ const ENTRY_COMPONENTS = [
   CrisLayoutHorizontalComponent,
   CrisLayoutMetadataBoxComponent,
   TextComponent,
+  TextMultilingualComponent,
   HeadingComponent,
   CrisLayoutRelationBoxComponent,
   CrisLayoutIIIFViewerBoxComponent,
