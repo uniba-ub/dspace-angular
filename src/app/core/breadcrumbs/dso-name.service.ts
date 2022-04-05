@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { hasValue, isEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { TranslateService } from '@ngx-translate/core';
@@ -58,7 +58,13 @@ export class DSONameService {
         return mv.value;
       }
     }
-  // No matches for language, return first value;
+    const defaultlanguage = this.translateService.defaultLang;
+    for (const mv of mvs) {
+      if (isNotEmpty(mv.language) && mv.language.indexOf(defaultlanguage) === 0) {
+        return mv.value;
+      }
+    }
+  // No matches for language, return first value
     if (mvs[0] !== undefined) {
       return mvs[0].value;
     } else {
