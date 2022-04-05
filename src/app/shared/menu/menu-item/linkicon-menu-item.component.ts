@@ -31,16 +31,16 @@ export class LinkIconMenuItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.hasLink = isNotEmpty(this.item.link);
-    if(this.item.icon){
-    let iconsymbol: string = this.translateService.instant(this.item.icon);
-    	if (iconsymbol === this.item.icon ) {
-    		this.hasIcon = false
-   	}else{
-   		this.icon = iconsymbol;
-   		this.hasIcon = true;
-   	}
-    }else{
-    	this.hasIcon = false;
+    if (this.item.icon) {
+      const iconsymbol: string = this.translateService.instant(this.item.icon);
+      if (iconsymbol === this.item.icon ) {
+        this.hasIcon = false;
+      } else {
+        this.icon = iconsymbol;
+        this.hasIcon = true;
+      }
+    } else {
+      this.hasIcon = false;
     }
   }
 
