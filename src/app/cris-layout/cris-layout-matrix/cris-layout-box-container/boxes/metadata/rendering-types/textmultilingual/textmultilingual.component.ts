@@ -21,25 +21,25 @@ export class TextMultilingualComponent extends RenderingTypeStructuredModelCompo
 
 
   get getField(): string {
-    let locale = this.translateService.currentLang;
-    let mvs: MetadataValue[] = this.item.allMetadata(this.field.metadata);
-    //Only one entry, return first value;
-    if(mvs.length == 1){
-	return mvs[0].value;
+    const locale = this.translateService.currentLang;
+    const mvs: MetadataValue[] = this.item.allMetadata(this.field.metadata);
+    // Only one entry, return first value;
+    if (mvs.length === 1) {
+      return mvs[0].value;
     }
-    for(let mv of mvs){
-	    if(isNotEmpty(mv.language) && mv.language.indexOf(locale) == 0){
-		return mv.value;
-	    }
+    for (const mv of mvs) {
+      if (isNotEmpty(mv.language) && mv.language.indexOf(locale) === 0) {
+        return mv.value;
+      }
     }
-    //return matching entry in default language
-    let defaultlanguage = this.translateService.defaultLang;
-        for(let mv of mvs){
-	    if(isNotEmpty(mv.language) && mv.language.indexOf(defaultlanguage) == 0){
-		return mv.value;
-	    }
-    	}
-        //No matches for default language, return first value;
+    // return matching entry in default language
+    const defaultlanguage = this.translateService.defaultLang;
+        for (const mv of mvs) {
+          if (isNotEmpty(mv.language) && mv.language.indexOf(defaultlanguage) === 0) {
+            return mv.value;
+          }
+        }
+        // No matches for default language, return first value;
         return mvs[0].value;
   }
 }

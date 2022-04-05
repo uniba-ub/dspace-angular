@@ -40,7 +40,6 @@ export class DSONameService {
       return dso.firstMetadataValue('organization.legalName') || this.multilingualTitle(dso, 'dc.title') || dso.firstMetadataValue('dc.title');
     },
     Default: (dso: DSpaceObject): string => {
-        
       // If object doesn't have dc.title metadata use name property
       return this.multilingualTitle(dso, 'dc.title') || dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
     }
@@ -49,24 +48,24 @@ export class DSONameService {
   * returns the first matching entry in the current locale or the first value.
   */
   multilingualTitle(dso: DSpaceObject, field: string): string {
-        let locale = this.translateService.currentLang;
-            let mvs: MetadataValue[] = dso.allMetadata(field);
-	    //Only one entry, return first value;
-	    if(mvs.length == 1 && mvs[0] != undefined) return mvs[0].value;
-	    for(let mv of mvs){
-		    if(mv.language != undefined && mv.language != "" && mv.language.indexOf(locale) == 0){
-	    		//return matching entry
-			return mv.value;
-		    }
-	    }
-        //No matches for language, return first value;
-	if(mvs[0] != undefined){
-	        return mvs[0].value;
-	}else{
-		return undefined;
-	}
+    const locale = this.translateService.currentLang;
+    const mvs: MetadataValue[] = dso.allMetadata(field);
+            // Only one entry, return first value;
+      // if (mvs.length === 1 && mvs[0] !== undefined) return mvs[0].value;
+    for (const mv of mvs) {
+      if (mv.language !== undefined && mv.language !== '' && mv.language.indexOf(locale) === 0) {
+        // return matching entry
+        return mv.value;
+      }
+    }
+  // No matches for language, return first value;
+    if (mvs[0] !== undefined) {
+      return mvs[0].value;
+    } else {
+      return undefined;
+    }
   }
-  
+
   /**
    * Get the name for the given {@link DSpaceObject}
    *
