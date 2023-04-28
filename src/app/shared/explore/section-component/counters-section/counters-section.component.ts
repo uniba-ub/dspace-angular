@@ -1,9 +1,8 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchObjects } from '../../../search/models/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
@@ -11,6 +10,7 @@ import { PaginationComponentOptions } from '../../../pagination/pagination-compo
 import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
+import { Router } from '@angular/router';
 import { hasValue } from '../../../empty.util';
 
 @Component({
@@ -25,7 +25,6 @@ export class CountersSectionComponent implements OnInit {
   @Input()
   countersSection: CountersSection;
 
-  counterData: CounterData[] = [];
   counterData$: Observable<CounterData[]>;
   isLoading$ = new BehaviorSubject(true);
 
@@ -36,7 +35,7 @@ export class CountersSectionComponent implements OnInit {
   });
 
 
-  constructor(private searchService: SearchService, @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
+  constructor(private searchService: SearchService, private router: Router) {
 
   }
 
@@ -61,11 +60,17 @@ export class CountersSectionComponent implements OnInit {
     this.counterData$.subscribe(() => this.isLoading$.next(false));
   }
 
-  goToLink(link: string) {
-    if (hasValue(link)) {
-      this._window.nativeWindow.location.href = link;
-    }
+  getLinkQueryParams(link: string): any {
+    return this.router.parseUrl(link).queryParams || null;
   }
+
+  getLinkSegment(link: string): string {
+    if (hasValue(link) && link.includes('?')) {
+      return link.split('?')[0];
+    }
+    return link;
+  }
+
 }
 
 
