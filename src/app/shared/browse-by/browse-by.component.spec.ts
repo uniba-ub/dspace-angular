@@ -248,6 +248,7 @@ describe('BrowseByComponent', () => {
       comp.back();
       expect(paginationService.updateRoute).toHaveBeenCalledWith(id, {page: 1}, {
         value: null,
+        authority: null,
         startsWith: null,
         [id + '.return']: null
       });
