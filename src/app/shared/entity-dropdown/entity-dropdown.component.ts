@@ -1,7 +1,6 @@
 import {
   ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input,
@@ -23,7 +22,6 @@ import {
 } from '../../core/itemexportformat/item-export-format.service';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
 
 @Component({
   selector: 'ds-entity-dropdown',
@@ -60,6 +58,12 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   @Input() isSubmission: boolean;
 
   /**
+   * TRUE if the parent operation is a 'Import metadata from an external source' operation, FALSE otherwise (eg.: is an 'Export Item' operation).
+   */
+  @Input() isExternalImport = false;
+
+
+  /**
    * The entity to output to the parent component
    */
   @Output() selectionChange = new EventEmitter<ItemType>();
@@ -91,13 +95,11 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeDataService} entityTypeService
    * @param {ItemExportFormatService} itemExportFormatService
-   * @param {ElementRef} el
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeDataService,
     private itemExportFormatService: ItemExportFormatService,
-    private el: ElementRef
   ) { }
 
   /**
@@ -176,7 +178,21 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
               }
             })
           );
-    } else {
+    } else if (this.isExternalImport) {
+      const findOptions: FindListOptions = {
+        elementsPerPage: 10,
+        currentPage: page
+      };
+      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions)
+        .pipe(
+          getFirstSucceededRemoteWithNotEmptyData(),
+          tap(entityType => {
+            if ((this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements) {
+              this.hasNextPage = false;
+            }
+          })
+        );
+  } else {
       searchListEntity$ =
         this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE)
           .pipe(
