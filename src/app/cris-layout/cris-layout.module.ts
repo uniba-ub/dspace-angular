@@ -110,6 +110,7 @@ import {
   AttachmentRenderingModule
 } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 import { FormModule } from '../shared/form/form.module';
+import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -172,7 +173,8 @@ const ENTRY_COMPONENTS = [
     MiradorViewerModule,
     MetricsModule,
     AttachmentRenderingModule,
-    FormModule
+    FormModule,
+    ResultsBackButtonModule
   ],
   exports: [
     CrisLayoutComponent,
