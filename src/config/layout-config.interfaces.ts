@@ -36,10 +36,15 @@ export interface CrisItemPageConfig extends Config {
   default: CrisLayoutTypeConfig;
 }
 
+export interface CrisRefStyleMetadata extends Config {
+  [metadata: string]: string;
+  default: string;
+}
 
 export interface CrisLayoutConfig extends Config {
   urn: UrnConfig[];
   crisRef: CrisRefConfig[];
+  crisRefStyleMetadata: CrisRefStyleMetadata;
   itemPage: CrisItemPageConfig;
   metadataBox: CrisLayoutMetadataBoxConfig;
 }
