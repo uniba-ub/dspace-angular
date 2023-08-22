@@ -26,6 +26,11 @@ export class CSSVariableService {
     return styleSheet.href.indexOf(window.location.origin) === 0;
   };
 
+  hasCssRules = (styleSheet) => {
+    // Injected style blocks might have no css rules value
+    return styleSheet.hasOwnProperty('cssRules') && styleSheet.cssRules;
+  };
+
   /*
    Determine if the given rule is a CSSStyleRule
    See: https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
@@ -95,6 +100,7 @@ export class CSSVariableService {
       // Filter out any stylesheets not on this domain
       return [...document.styleSheets]
         .filter(this.isSameDomain)
+        .filter(this.hasCssRules)
         .reduce(
           (finalArr, sheet) =>
             finalArr.concat(
