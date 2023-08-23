@@ -26,8 +26,12 @@ export class CSSVariableService {
     return styleSheet.href.indexOf(window.location.origin) === 0;
   };
 
+  /**
+   * Checks whether the specific stylesheet object has the property cssRules
+   * @param styleSheet The stylesheet
+   */
   hasCssRules = (styleSheet) => {
-    // Injected style blocks might have no css rules value
+    // Injected styles might have no css rules value
     return styleSheet.hasOwnProperty('cssRules') && styleSheet.cssRules;
   };
 
@@ -98,6 +102,7 @@ export class CSSVariableService {
     if (isNotEmpty(document.styleSheets)) {
       // styleSheets is array-like, so we convert it to an array.
       // Filter out any stylesheets not on this domain
+      // Filter out any stylesheets that have no cssRules property
       return [...document.styleSheets]
         .filter(this.isSameDomain)
         .filter(this.hasCssRules)
