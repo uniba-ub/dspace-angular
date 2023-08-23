@@ -1,0 +1,25 @@
+<ng-container *ngIf="isExternal; else internal"><a class="nav-item nav-link"
+   [ngClass]="{ 'disabled': !hasLink }"
+   [attr.aria-disabled]="!hasLink"
+   [title]="item.text | translate"
+   [href]="href()"
+   (click)="$event.stopPropagation()"
+   (keyup.space)="navigate($event)"
+   (keyup.enter)="navigate($event)"
+><span *ngIf="item.icon" class="exploreicon">
+    <span class="{{item.icon}} pr-1"></span>
+  </span>{{item.text | translate}}</a>
+</ng-container>
+<ng-template #internal><a class="nav-item nav-link"
+                          [ngClass]="{ 'disabled': !hasLink }"
+                          [attr.aria-disabled]="!hasLink"
+                          [title]="item.text | translate"
+                          [routerLink]="getRouterLink()"
+                          (click)="$event.stopPropagation()"
+                          (keyup.space)="navigate($event)"
+                          (keyup.enter)="navigate($event)"
+                          href="javascript:void(0);"
+><span *ngIf="item.icon" class="exploreicon">
+    <span class="{{item.icon}} pr-1"></span>
+</span>{{item.text | translate}}</a>
+</ng-template>

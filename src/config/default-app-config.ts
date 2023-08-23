@@ -580,6 +580,12 @@ export class DefaultAppConfig implements AppConfig {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
+      // {
+      // explore_id: 'fundings_and_projects',
+      // icon: 'fa fa-project-diagram'
+      // }
+      showExploreIcons: [
+      ]
     }
   };
 

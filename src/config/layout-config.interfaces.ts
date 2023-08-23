@@ -29,6 +29,12 @@ export interface CrisLayoutTypeConfig {
 
 export interface NavbarConfig extends Config {
   showCommunityCollection: boolean;
+  showExploreIcons?: NavbarItemIconConfig[]
+}
+
+export interface NavbarItemIconConfig extends Config {
+  explore_id: string;
+  icon: string;
 }
 
 export interface CrisItemPageConfig extends Config {
