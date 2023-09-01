@@ -18,5 +18,6 @@ export enum Context {
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
   RelationshipItem = 'relationshipItem',
-  BrowseMostElements = 'browseMostElements'
+  BrowseMostElements = 'browseMostElements',
+  AssociateItem = 'associateitem',
 }
