@@ -19,6 +19,11 @@ import { SearchSectionComponent } from './section-component/search-section/searc
 import { ThemedSearchSectionComponent } from './section-component/search-section/themed-search-section.component';
 import { TextSectionComponent } from './section-component/text-section/text-section.component';
 import { ThemedTextSectionComponent } from './section-component/text-section/themed-text-section.component';
+import { OrgunittreeSectionComponent } from './section-component/orgunit-tree-section/orgunit-tree-section.component';
+import { ThemedOrgunittreeSectionComponent } from './section-component/orgunit-tree-section/themed-orgunit-tree-section.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrgunitTreeNodeComponent } from './section-component/orgunit-tree-section/orgunit-tree-node/orgunit-tree-node.component';
+
 import { SharedModule } from '../shared.module';
 
 const COMPONENTS = [
@@ -36,6 +41,9 @@ const COMPONENTS = [
   ThemedTextSectionComponent,
   TopSectionComponent,
   ThemedTopSectionComponent,
+  OrgunittreeSectionComponent,
+  OrgunitTreeNodeComponent,
+  ThemedOrgunittreeSectionComponent
 ];
 
 @NgModule({
@@ -44,7 +52,8 @@ const COMPONENTS = [
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    NgbAccordionModule
   ],
   exports: [
     ...COMPONENTS

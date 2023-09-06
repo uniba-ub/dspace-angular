@@ -2219,6 +2219,8 @@
 
   "explore.orgunits.breadcrumbs": "Organizations",
 
+  "explore.orgunittree.title": "Organizations",
+
   "explore.publications.breadcrumbs": "Research Outputs",
 
   "explore.researchoutputs.breadcrumbs": "Research Outputs",
@@ -4368,6 +4370,17 @@
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  "orgunittree.not.enabled": "The orgunit tree is not enabled.",
+
+  "orgunittree.not.loaded": "The orgunit tree could not be loaded.",
+
+  "orgunittree.loading.tree": "Loading orgunit tree...",
+
+  "orgunittree.loading.node": "Loading branch in orgunit tree...",
+
+  "orgunittree.recreate": "Recreate orgunit tree",
+
+  "orgunittree.recreate.tooltip": "This recreates the structure of the orgunit tree.",
 
 
   "pagination.options.description": "Pagination options",

@@ -205,6 +205,7 @@ import { WorkflowStepStatistics } from './statistics/models/workflow-step-statis
 import { WorkflowOwnerStatisticsDataService } from './statistics/workflow-owner-statistics-data.service';
 import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 import { LoginStatisticsService } from './statistics/login-statistics.service';
+import { OrgunittreeService } from './orgunittree/orgunittree.service';
 import { LoginStatistics } from './statistics/models/login-statistics.model';
 import { MachineToken } from './auth/models/machine-token.model';
 import { SchemaJsonLDService } from './metadata/schema-json-ld/schema-json-ld.service';
@@ -368,6 +369,7 @@ const PROVIDERS = [
   WorkflowStepStatisticsDataService,
   WorkflowOwnerStatisticsDataService,
   LoginStatisticsService,
+  OrgunittreeService,
 ];
 
 const SCHEMA_PROVIDERS = [

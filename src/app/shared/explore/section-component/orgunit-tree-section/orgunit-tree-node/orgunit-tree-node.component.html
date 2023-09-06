@@ -1,0 +1,80 @@
+<ng-template #orgunittreemetrics>
+  <!-- Print metrics -->
+
+  <div *ngIf="node.metrics != undefined && (!isParent() || printnochilds)">
+    <ng-container *ngFor="let rendering of metricsrendering.renderings">
+      <ng-container *ngIf="hasMetrics(rendering.key)">
+        <ng-container *ngVar="getMetricsValue(rendering.key) as metricvalue">
+              <span class="badge badge-secondary metrics-icon"
+                    *ngIf="rendering.hidezero === undefined || (rendering?.hidezero && rendering?.hidezero === true && metricvalue > 0)">
+                <i class="fa {{rendering.icon}}" [ngbTooltip]="(rendering.tooltip) ? (rendering.tooltip | translate) : null" [placement]="'right'">
+                  {{metricvalue}}
+                </i>&nbsp;
+              </span>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="node.aggregatedmetrics != undefined && isParent() && !printnochilds">
+    <ng-container *ngFor="let rendering of metricsrendering.renderings">
+      <ng-container *ngIf="hasAggregatedMetrics(rendering.key)">
+        <ng-container *ngVar="getAggregatedMetricsValue(rendering.key) as metricvalue">
+              <span class="badge badge-secondary metrics-icon"
+                    *ngIf="rendering.hidezero === undefined || (rendering?.hidezero && rendering?.hidezero === true && metricvalue > 0)">
+                <i class="fa {{rendering.icon}}"  [ngbTooltip]="(rendering.tooltip) ? (rendering.tooltip | translate) : null" [placement]="'right'">
+                  {{metricvalue}}
+                </i>&nbsp;
+              </span>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>
+<div *ngIf="isLoading$ | async">
+  <ds-loading message="{{'orgunittree.loading.node' | translate}}"></ds-loading>
+</div>
+<div *ngIf="node$ | async">
+<ngb-accordion #acc="ngbAccordion">
+	  <ngb-panel #panel>
+	  <ng-template ngbPanelTitle>
+      <!-- Got some item - Print title -->
+        <div class="treenode-title"
+             *ngIf="hasItem() || ((node.items | async)?.payload != undefined)">
+          <div *ngIf="(isParent() && !printnochilds)">
+            <span *ngIf="acc.panels.first && acc.isExpanded(acc.panels.first.id)">
+              <i class="fa fa-chevron-down pr-1"></i>
+            </span>
+            <span *ngIf="!acc.isExpanded(acc.panels.first.id)">
+              <i class="fa fa-chevron-right pr-1"></i>
+            </span>
+            {{printTitle() | async}}
+            <ng-container *ngTemplateOutlet="orgunittreemetrics"></ng-container>
+          </div>
+          <a *ngIf="(!isParent() || printnochilds)"
+             rel="noopener noreferrer" [routerLink]="[path]">
+            <span *ngIf="node.item && hasEntityIcon()" class="pl-1">
+              <i class="fa {{getEntityIcon()}}"></i>
+            </span>
+            {{printTitle() | async}}
+            <ng-container *ngTemplateOutlet="orgunittreemetrics"></ng-container>
+          </a>
+        </div>
+      	</ng-template>
+      	<ng-template ngbPanelContent *ngIf="isParent() && !printnochilds">
+          <!-- repeat the actual parent node one time inside the body -->
+            <ds-orgunit-tree-node
+              [inputnode]="node"
+              [depth]="depth+1"
+              [printnochilds]="true"
+              [metricsrendering]="metricsrendering">
+            </ds-orgunit-tree-node>
+      			<ds-orgunit-tree-node
+              *ngFor="let childsuuid of node.childs"
+              [uuid]="childsuuid"
+              [depth]="depth+1"
+              [metricsrendering]="metricsrendering">
+            </ds-orgunit-tree-node>
+      	</ng-template>
+      	</ngb-panel>
+</ngb-accordion>
+</div>

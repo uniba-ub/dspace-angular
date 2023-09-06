@@ -1,0 +1,28 @@
+<div class="container" *ngIf="(isEnabled$ | async) === false && (isAdmin$ | async)">
+  <div class="card row d-flex justify-content-center">
+    <ds-alert [type]="'alert-info'" [content]="'orgunittree.not.enabled'"></ds-alert>
+  </div>
+</div>
+<div class="container" *ngIf="(isEnabled$ | async) === true">
+  <div class="card row d-flex justify-content-center">
+    <div *ngIf="isLoading$ | async">
+      <ds-loading message="{{'orgunittree.loading.tree' | translate}}"></ds-loading>
+    </div>
+      <div class="card-body" *ngIf="(isLoading$ | async) === false && hasTree()">
+        <h2 class="card-title" *ngIf="treeSection.title">{{treeSection.title | translate}}</h2>
+
+        <div id="orgunittreeaccordion" *ngIf="tree">
+            <ds-orgunit-tree-node *ngFor="let rootnode of tree; let i = index" [inputnode]="rootnode" [depth]="0" [metricsrendering]="metricsrendering"></ds-orgunit-tree-node>
+          </div>
+      </div>
+    <div class="card-body" *ngIf="(isLoading$ | async) === false && hasTree() === false">
+      <ds-alert [type]="'alert-info'" [content]="'orgunittree.not.loaded'"></ds-alert>
+    </div>
+    <div class="row col-md-12 justify-content-center" *ngIf="(isAdmin$ | async) && (isLoading$ | async) === false">
+      <div class="col-md-3 d-flex">
+        <button type="button" class="btn btn-primary" (click)="recreate()"
+                [ngbTooltip]="'orgunittree.recreate.tooltip' | translate">{{'orgunittree.recreate' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

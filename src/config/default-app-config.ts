@@ -33,6 +33,7 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { TreeRenderingConfig } from './tree-rendering.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -718,6 +719,54 @@ export class DefaultAppConfig implements AppConfig {
 
   searchResult: SearchResultConfig = {
     additionalMetadataFields: []
+  };
+
+  treeRendering: TreeRenderingConfig = {
+    entries: [
+      {
+        treename: 'orgunittree',
+        entityicons: [
+          {
+            key: 'OrgUnit',
+            icon: 'fa-landmark'
+          }
+        ],
+        renderings: [
+          {
+            key: 'publications',
+            icon: 'fa-book',
+          },
+          {
+            key: 'publicationsaggregated',
+            icon: 'fa-book',
+          },
+          {
+            key: 'product',
+            icon: 'fa-database'
+          },
+          {
+            key: 'productaggregated',
+            icon: 'fa-database'
+          },
+          {
+            key: 'projects',
+            icon: 'fa-diagram-project'
+          },
+          {
+            key: 'projectsaggregated',
+            icon: 'fa-diagram-project'
+          },
+          {
+            key: 'persons',
+            icon: 'fa-user'
+          },
+          {
+            key: 'personsaggregated',
+            icon: 'fa-users'
+          }
+        ]
+      }
+    ]
   };
 
 }
