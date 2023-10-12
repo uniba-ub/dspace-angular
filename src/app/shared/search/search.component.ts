@@ -584,4 +584,29 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.sidebarService.toggle();
   }
 
+  /**
+   * Experimental to use: Retrieve the results from the current options.
+   Might be called when the query has been changed in the search configuration service by some button or so and configuration or context have not changed.
+   */
+  public retrieveResults(){
+    this.refreshFilters.next(true);
+    this.retrieveFilters(this.searchOptions$.value);
+    this.retrieveSearchResults(this.searchOptions$.value);
+  }
+
+  public setSearchOptions(options: PaginatedSearchOptions) {
+    this.searchConfigService.paginatedSearchOptions.next(options);
+    this.searchOptions$.next(options);
+    const config = this.currentConfiguration$.getValue();
+    this.currentConfiguration$.next('');
+    this.currentConfiguration$.next(config);
+  }
+
+  public changeConfiguration(configuration: string) {
+    this.currentConfiguration$.next(configuration);
+    this.routeService.setParameter('configuration', configuration);
+  }
+
+
+
 }

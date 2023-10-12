@@ -1,7 +1,51 @@
-<ds-configuration-search-page *ngIf="configuration" class="w-100"
-                              [fixedFilterQuery]="searchFilter"
-                              [configuration]="configuration"
-                              [searchEnabled]="searchEnabled"
-                              [showCharts]="true"
-                              [showScopeSelector]="false">
-</ds-configuration-search-page>
+<ng-template #relationselected>
+  <div class="row">
+    <div *ngIf="(selectedOption$ | async) === true" class="col-12 pb-4 btn-group">
+      <div ngbDropdown
+           *ngIf="(appliedSelected$ | async) === true">
+        <button id="selectedbtnGroupDrop1" ngbDropdownToggle
+                type="button" class="btn btn-secondary"
+                [ngbTooltip]="'cris-layout.relation.box.showSelected.tooltip.active' | translate">
+          {{'cris-layout.relation.box.showSelected' | translate}}
+        </button>
+        <div class="z-over-menu" ngbDropdownMenu aria-labelledby="selectedbtnGroupDrop1">
+          <button class="list-element"
+                  ngbDropdownItem (click)="onSearchAll($event)"
+                  [ngbTooltip]="'cris-layout.relation.box.showAll.tooltip' | translate">{{'cris-layout.relation.box.showAll' | translate}}</button>
+        </div>
+      </div>
+      <div ngbDropdown
+           *ngIf="(appliedSelected$ | async) === false">
+        <button id="allbtnGroupDrop1" ngbDropdownToggle
+                type="button" class="btn btn-secondary"
+                [ngbTooltip]="'cris-layout.relation.box.showAll.tooltip.active' | translate">
+          {{'cris-layout.relation.box.showAll' | translate}}
+        </button>
+        <div class="z-over-menu" ngbDropdownMenu aria-labelledby="allbtnGroupDrop1">
+          <button class="list-element" ngbDropdownItem (click)="onSearchSelected($event)">{{'cris-layout.relation.box.showSelected' | translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <ds-configuration-search-page *ngIf="configuration" class="w-100"
+                                    [fixedFilterQuery]="searchFilter"
+                                    [configuration]="configuration"
+                                    [searchEnabled]="searchEnabled"
+                                    [showCharts]="true"
+                                    [showScopeSelector]="false">
+      </ds-configuration-search-page>
+    </div>
+  </div>
+</ng-template>
+<ng-template #search>
+  <ds-configuration-search-page *ngIf="configuration" class="w-100"
+                                [fixedFilterQuery]="searchFilter"
+                                [configuration]="configuration"
+                                [searchEnabled]="searchEnabled"
+                                [showCharts]="true"
+                                [showScopeSelector]="false">
+  </ds-configuration-search-page>
+</ng-template>
+<ng-container *ngIf="(selectedOption$ | async) === true ; then relationselected; else search"></ng-container>
+
+

@@ -30,6 +30,7 @@ import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { RelationBoxSelectedConfig } from './relationbox-selected.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -66,6 +67,7 @@ interface AppConfig extends Config {
   attachmentRendering: AttachmentRenderingConfig;
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
   searchResult: SearchResultConfig;
+  relationBoxSelected: RelationBoxSelectedConfig;
 }
 
 /**

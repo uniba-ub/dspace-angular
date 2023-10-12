@@ -33,6 +33,7 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { RelationBoxSelectedConfig } from './relationbox-selected.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -720,4 +721,15 @@ export class DefaultAppConfig implements AppConfig {
     additionalMetadataFields: []
   };
 
-}
+  relationBoxSelected: RelationBoxSelectedConfig = {
+    prefix: 'relation.',
+    entries:
+      [
+      //  {
+      //    configuration: 'RELATION.Person.publications',
+      //    relationLeftType: 'isPublicationsSelectedFor'
+      // },
+      ]
+  };
+
+  }
