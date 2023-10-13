@@ -110,6 +110,7 @@ import {
   AttachmentRenderingModule
 } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 import { FormModule } from '../shared/form/form.module';
+import { CrisLayoutCollectionBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/cris-layout-collection-box/cris-layout-collection-box.component';
 import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 
 const ENTRY_COMPONENTS = [
@@ -117,6 +118,7 @@ const ENTRY_COMPONENTS = [
   CrisLayoutVerticalComponent,
   CrisLayoutHorizontalComponent,
   CrisLayoutMetadataBoxComponent,
+  CrisLayoutCollectionBoxComponent,
   TextComponent,
   HeadingComponent,
   CrisLayoutRelationBoxComponent,
