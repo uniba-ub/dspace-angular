@@ -14,27 +14,30 @@ import { filter, find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
-  CreateCommunityParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+  ThemedCreateCommunityParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
 import {
-  CreateCollectionParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+  ThemedCreateCollectionParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
-  CreateItemParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+  ThemedCreateItemParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
-  EditCommunitySelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+  ThemedEditCommunitySelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
-  EditCollectionSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+  ThemedEditCollectionSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import {
-  EditItemSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+  ThemedEditItemSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
-  ExportMetadataSelectorComponent
-} from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+  ExportMetadataCsvSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-metadata-csv-selector/export-metadata-csv-selector.component';
+import {
+  ExportMetadataXlsSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-metadata-xls-selector/export-metadata-xls-selector.component';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -42,12 +45,12 @@ import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService
 } from './core/data/processes/script-data.service';
-import { environment } from '../environments/environment';
-import { SectionDataService } from './core/layout/section-data.service';
-import { Section } from './core/layout/models/section.model';
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { environment } from '../environments/environment';
+import { SectionDataService } from './core/layout/section-data.service';
+import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 
 /**
@@ -123,17 +126,44 @@ export class MenuResolver implements Resolve<boolean> {
     ).subscribe( (sectionDefListRD: RemoteData<PaginatedList<Section>>) => {
       if (sectionDefListRD.hasSucceeded) {
         sectionDefListRD.payload.page.forEach((section) => {
-          menuList.push({
+          let parentMenu: any = {
             id: `explore_${section.id}`,
             active: false,
             visible: true,
-            model: {
-              type: MenuItemType.LINK,
-              text: `menu.section.explore_${section.id}`,
-              link: `/explore/${section.id}`
-            } as LinkMenuItemModel
-          });
-
+          };
+          if (section.nestedSections && section.nestedSections.length) {
+            section.nestedSections.forEach((nested) => {
+              menuList.push({
+                id: `explore_nested_${nested.id}`,
+                parentID: `explore_${section.id}`,
+                active: false,
+                visible: true,
+                model: {
+                  type: MenuItemType.LINK,
+                  text: `menu.section.explore_${nested.id}`,
+                  link: `/explore/${nested.id}`
+                } as LinkMenuItemModel
+              });
+            });
+            parentMenu = {
+              ...parentMenu,
+              index: 1,
+              model: {
+                type: MenuItemType.TEXT,
+                text: `menu.section.explore_${section.id}`
+              } as TextMenuItemModel,
+            };
+          } else {
+            parentMenu = {
+              ...parentMenu,
+              model: {
+                type: MenuItemType.LINK,
+                text: `menu.section.explore_${section.id}`,
+                link: `/explore/${section.id}`
+              } as LinkMenuItemModel
+            };
+          }
+          menuList.push(parentMenu);
         });
       }
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
@@ -236,21 +266,11 @@ export class MenuResolver implements Resolve<boolean> {
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
-      const menuList = [
-        /* News */
-        {
-          id: 'new',
-          active: false,
-          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.new'
-          } as TextMenuItemModel,
-          icon: 'plus',
-          index: 0
-        },
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanSubmit),
+      this.authorizationService.isAuthorized(FeatureID.CanEditItem),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
+      const newSubMenuList = [
         {
           id: 'new_community',
           parentID: 'new',
@@ -260,7 +280,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_community',
             function: () => {
-              this.modalService.open(CreateCommunityParentSelectorComponent);
+              this.modalService.open(ThemedCreateCommunityParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -273,7 +293,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',
             function: () => {
-              this.modalService.open(CreateCollectionParentSelectorComponent);
+              this.modalService.open(ThemedCreateCollectionParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -281,12 +301,12 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: true,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
             function: () => {
-              this.modalService.open(CreateItemParentSelectorComponent);
+              this.modalService.open(ThemedCreateItemParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -294,38 +314,16 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_process',
           parentID: 'new',
           active: false,
-          visible: isCollectionAdmin,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.new_process',
             link: '/processes/new'
           } as LinkMenuItemModel,
         },
-        // TODO: enable this menu item once the feature has been implemented
-        // {
-        //   id: 'new_item_version',
-        //   parentID: 'new',
-        //   active: false,
-        //   visible: true,
-        //   model: {
-        //     type: MenuItemType.LINK,
-        //     text: 'menu.section.new_item_version',
-        //     link: ''
-        //   } as LinkMenuItemModel,
-        // },
-
+      ];
+      const editSubMenuList = [
         /* Edit */
-        {
-          id: 'edit',
-          active: false,
-          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.edit'
-          } as TextMenuItemModel,
-          icon: 'pencil-alt',
-          index: 1
-        },
         {
           id: 'edit_community',
           parentID: 'edit',
@@ -335,7 +333,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_community',
             function: () => {
-              this.modalService.open(EditCommunitySelectorComponent);
+              this.modalService.open(ThemedEditCommunitySelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -348,7 +346,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_collection',
             function: () => {
-              this.modalService.open(EditCollectionSelectorComponent);
+              this.modalService.open(ThemedEditCollectionSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -356,15 +354,56 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'edit_item',
           parentID: 'edit',
           active: false,
-          visible: true,
+          visible: canEditItem,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_item',
             function: () => {
-              this.modalService.open(EditItemSelectorComponent);
+              this.modalService.open(ThemedEditItemSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
+      ];
+      const newSubMenu = {
+        id: 'new',
+        active: false,
+        visible: newSubMenuList.some(subMenu => subMenu.visible),
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.new'
+        } as TextMenuItemModel,
+        icon: 'plus',
+        index: 0
+      };
+      const editSubMenu = {
+        id: 'edit',
+        active: false,
+        visible: editSubMenuList.some(subMenu => subMenu.visible),
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.edit'
+        } as TextMenuItemModel,
+        icon: 'pencil-alt',
+        index: 1
+      };
+
+      const menuList = [
+        ...newSubMenuList,
+        newSubMenu,
+        ...editSubMenuList,
+        editSubMenu,
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'new_item_version',
+        //   parentID: 'new',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.new_item_version',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        // },
 
         /* Statistics */
         // TODO: enable this menu item once the feature has been implemented
@@ -499,15 +538,43 @@ export class MenuResolver implements Resolve<boolean> {
         shouldPersistOnRouteChange: true
       });
       this.menuService.addSection(MenuID.ADMIN, {
-        id: 'export_metadata',
+        id: 'export_metadata_csv',
         parentID: 'export',
         active: true,
         visible: true,
         model: {
           type: MenuItemType.ONCLICK,
-          text: 'menu.section.export_metadata',
+          text: 'menu.section.export_metadata_csv',
           function: () => {
-            this.modalService.open(ExportMetadataSelectorComponent);
+            this.modalService.open(ExportMetadataCsvSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_metadata_xls',
+        parentID: 'export',
+        active: true,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_metadata_xls',
+          function: () => {
+            this.modalService.open(ExportMetadataXlsSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_batch',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_batch',
+          function: () => {
+            this.modalService.open(ExportBatchSelectorComponent);
           }
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
@@ -700,6 +767,18 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
           icon: 'user-check',
           index: 11
+        },
+        {
+          id: 'system_wide_alert',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.system-wide-alert',
+            link: '/admin/system-wide-alert'
+          } as LinkMenuItemModel,
+          icon: 'exclamation-circle',
+          index: 12
         },
         /* User agreement edit*/
         {
