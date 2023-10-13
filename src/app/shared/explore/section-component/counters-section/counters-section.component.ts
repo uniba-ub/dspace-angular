@@ -12,6 +12,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { Router } from '@angular/router';
 import { hasValue } from '../../../empty.util';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-counters-section',
@@ -25,17 +26,20 @@ export class CountersSectionComponent implements OnInit {
   @Input()
   countersSection: CountersSection;
 
+  counterData: CounterData[] = [];
   counterData$: Observable<CounterData[]>;
   isLoading$ = new BehaviorSubject(true);
 
   pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'counters-pagination',
+    id: this.uuidService.generate(),
     pageSize: 1,
     currentPage: 1
   });
 
 
-  constructor(private searchService: SearchService, private router: Router) {
+  constructor(private searchService: SearchService,
+              private uuidService: UUIDService,
+              private router: Router) {
 
   }
 
