@@ -574,6 +574,11 @@ export class DefaultAppConfig implements AppConfig {
     metadataBox: {
       defaultMetadataLabelColStyle: 'col-3',
       defaultMetadataValueColStyle: 'col-9'
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true
     }
   };
 
@@ -721,6 +726,8 @@ export class DefaultAppConfig implements AppConfig {
     additionalMetadataFields: []
   };
 
+  breadcrumbCharLimit = 10;
+
   treeRendering: TreeRenderingConfig = {
     entries: [
       {
@@ -768,5 +775,4 @@ export class DefaultAppConfig implements AppConfig {
       }
     ]
   };
-
 }
