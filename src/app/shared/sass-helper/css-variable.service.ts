@@ -31,8 +31,12 @@ export class CSSVariableService {
    * @param styleSheet The stylesheet
    */
   hasCssRules = (styleSheet) => {
-    // Injected styles might have no css rules value
-    return styleSheet.hasOwnProperty('cssRules') && styleSheet.cssRules;
+    // Injected (cross-origin) styles might have no css rules value and throw some exception
+    try {
+      return styleSheet.cssRules;
+    } catch (e) {
+      return false;
+    }
   };
 
   /*
