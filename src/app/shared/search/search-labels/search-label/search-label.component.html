@@ -1,6 +1,6 @@
-<a class="badge badge-primary mr-1 mb-1 text-capitalize" [routerLink]="searchLink" [queryParams]="(removeParameters | async)"
+<a class="badge badge-primary mr-1 mb-1" [routerLink]="searchLink" [queryParams]="(removeParameters | async)"
     queryParamsHandling="merge">
     {{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + filterName + '.' + normalizeFilterValue(value) | translate: {default:
-    normalizeFilterValue(getStrippedValue(value))} }}
+    normalizeFilterValue(value)} }}
     <span> ×</span>
 </a>
