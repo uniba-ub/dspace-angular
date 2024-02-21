@@ -22,6 +22,8 @@ import { ItemVersionMenuComponent } from './item-version/item-version-menu.compo
 import { FullItemMenuComponent } from './full-item/full-item-menu.component';
 import { OrcidViewPageMenuComponent } from './orcid-view-page/orcid-view-page-menu.component';
 import { SharedModule } from '../shared.module';
+import { ItemVersionUnibaMenuComponent} from './item-unibaversion/item-unibaversion-menu.component';
+import { ItemVersionChangeMainUnibaMenuComponent } from './item-unibaversion-change/item-unibaversion-change-menu.component';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -37,6 +39,8 @@ const COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
+  ItemVersionUnibaMenuComponent,
+  ItemVersionChangeMainUnibaMenuComponent,
   FullItemMenuComponent,
   OrcidViewPageMenuComponent
 ];
@@ -54,6 +58,8 @@ const ENTRY_COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
+  ItemVersionUnibaMenuComponent,
+  ItemVersionChangeMainUnibaMenuComponent,
   FullItemMenuComponent,
   OrcidViewPageMenuComponent
 ];

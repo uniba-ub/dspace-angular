@@ -2770,6 +2770,82 @@
   // TODO New key - Add a translation
   "context-menu.actions.subscription.notification.content": "Subscription Updated Successfully, click {{here}} to see subscrition summary.",
 
+  "context-menu.modal.unibaversioning.apply": "Als auffindbare Version setzen",
+
+  "context-menu.modal.unibaversioning.apply.action": "Wird gesetzt....",
+
+  "context-menu.actions.unibaversioning.btn": "Version ergänzen",
+
+  "context-menu.actions.unibaversioning.btn.ResearchData": "Version ergänzen",
+
+  "context-menu.actions.unibaversioning.btn.Publication": "Volltext ergänzen",
+
+  "context-menu.modal.unibaversioning.error.version.both": "Dieses Item ist eine Version und hat Versionen. Bitte Metadaten überprüfen!",
+
+  "context-menu.modal.unibaversioning.error.version.selfreference": "Dieses Item referenziert sich selbst. Bitte Metadaten überprüfen!",
+
+  "context-menu.actions.unibaversioning.process.btn": "Version wird erstellt",
+
+  "context-menu.actions.unibaversioning.process.btn.Publication": "Einreichung wird erstellt",
+
+  "context-menu.actions.unibaversioning.notification.success.title": "Eintrag zur Bearbeitung öffnen",
+
+  "context-menu.actions.unibaversioning.notification.success.content": "Version ergänzt. {{here}}.",
+
+  "context-menu.actions.unibaversioning.notification.success.content.Publication": "{{here}} und Volltext und Infos zum Volltext ergänzen.",
+
+  "context-menu.actions.unibaversioning.notification.error.title": "Fehler",
+
+  "context-menu.actions.unibaversioning.notification.error.content": "Ein Fehler trat beim Erstellen der Version auf. Versuchen Sie es nochmal oder melden Sie es an das FIS-Team.",
+
+  "context-menu.actions.unibaversioning.notification.error.content.Publication": "Ein Fehler trat beim Erstellen der Einreichung auf. Versuchen Sie es nochmal oder melden Sie es an das FIS-Team.",
+
+  "context-menu.modal.unibaversioning.title": "Versionierung ändern",
+
+  "context-menu.modal.unibaversioning.section.hint.actual": "Das aktuelle Item",
+
+  "context-menu.modal.unibaversioning.section.nocontent": "Keine gültige Versionen gefunden.",
+
+  "context-menu.modal.unibaversioning.section.hint.discoverable.not": "Dieses Item ist in der Suche nicht auffindbar",
+
+  "context-menu.modal.unibaversioning.section.hint.discoverable": "Dieses Item ist in der Suche auffindbar",
+
+  "context-menu.modal.unibaversioning.section.loading.errors": "Überprüfe Versionierung",
+
+  "context-menu.modal.unibaversioning.section.loading.data": "Hole alle Versionen",
+
+  "context-menu.modal.unibaversioning.section.showerrors.btn": "Fehler gefunden",
+
+  "context-menu.modal.unibaversioning.section.showerrors.title": "Fehlerbeschreibung:",
+
+  "context-menu.modal.unibaversioning.cancel": "Schließen",
+
+  "context-menu.actions.unibaversioning.change.btn": "Versionierung ändern",
+
+  "context-menu.actions.unibaversioningchange.notification.error.conflict.title": "Inkonsistente Versionierung",
+
+  "context-menu.actions.unibaversioningchange.notification.error.conflict.content": "Die Struktur der Versionierung ist inkonsistent. Überprüfen Sie alle Items und Metdaten.",
+
+  "context-menu.actions.unibaversioningchange.notification.error.notfound.title": "Nicht gefunden",
+
+  "context-menu.actions.unibaversioningchange.notification.error.notfound.content": "Das gewählte Item wurde nicht gefunden. Eventuell wurde es zwischenzeitlich gelöscht?",
+
+  "context-menu.actions.unibaversioningchange.notification.error.forbidden.title": "Verboten",
+
+  "context-menu.actions.unibaversioningchange.notification.error.forbidden.content": "Sie haben keine Berechtigung. Loggen Sie Sich als berechtigter Nutzer ein.",
+
+  "context-menu.actions.unibaversioningchange.notification.error.title": "Fehler",
+
+  "context-menu.actions.unibaversioningchange.notification.error.content": "Ein Fehler trat auf. Kontaktieren Sie das FIS-Team für weitere Informationen.",
+
+  "context-menu.actions.unibaversioningchange.notification.success.title": "Version geändert",
+
+  "context-menu.actions.unibaversioningchange.notification.success.content": "Die Hauptversion wurde geändert. Seite neu laden!",
+
+  "context-menu.actions.unibaversioningchange.notification.error.invalid.title": "Kein Wert",
+
+  "context-menu.actions.unibaversioningchange.notification.error.invalid.content": "Kein Wert wurde ausgewählt.",
+
   // "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
   // TODO New key - Add a translation
   "RELATION.Person.researchoutputs.search.results.head": "Research Outputs",

@@ -12,6 +12,7 @@ export enum ContextMenuEntryType {
   Subscriptions = 'subscriptions',
   Report = 'report',
   ItemVersion = 'itemversion',
+  ItemVersionUniba = 'itemversionuniba',
   FullItem = 'fullitem',
   OrcidView = 'orcidview',
 }

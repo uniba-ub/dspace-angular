@@ -115,6 +115,7 @@ import { VersionDataService } from './data/version-data.service';
 import { VersionHistoryDataService } from './data/version-history-data.service';
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
+import { VersionUnibaItemService } from './data/version-uniba-data.service';
 import { Script } from '../process-page/scripts/script.model';
 import { Process } from '../process-page/processes/process.model';
 import { ProcessDataService } from './data/processes/process-data.service';
@@ -334,6 +335,7 @@ const PROVIDERS = [
   LookupRelationService,
   VersionDataService,
   VersionHistoryDataService,
+  VersionUnibaItemService,
   WorkflowActionDataService,
   ProcessDataService,
   AuditDataService,

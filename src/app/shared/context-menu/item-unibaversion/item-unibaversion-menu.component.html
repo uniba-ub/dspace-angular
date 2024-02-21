@@ -1,0 +1,5 @@
+<button class="btn dropdown-item" *ngIf="isAuthorized$ | async" (click)="createVersionAction()" [disabled]="processing$ | async">
+  <span *ngIf="processing$ | async"><i class="fa fa-spinner fa-spin"></i> {{ ('context-menu.actions.unibaversioning.process.btn.' + entitytype) | translate:{default: 'context-menu.actions.unibaversioning.process.btn'} }}</span>
+  <span *ngIf="(processing$ | async) == false">{{ ('context-menu.actions.unibaversioning.btn.' + entitytype) | translate:{default:'context-menu.actions.unibaversioning.btn'} }}</span>
+</button>
+

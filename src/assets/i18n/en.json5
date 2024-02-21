@@ -1706,6 +1706,82 @@
 
   "context-menu.actions.subscription.notification.content": "Subscription Updated Successfully, click {{here}} to see subscrition summary.",
 
+  "context-menu.modal.unibaversioning.apply": "Set discoverable Version",
+
+  "context-menu.modal.unibaversioning.apply.action": "being applied",
+
+  "context-menu.actions.unibaversioning.btn": "Complement version",
+
+  "context-menu.actions.unibaversioning.btn.Publication": "Add full text",
+
+  "context-menu.actions.unibaversioning.btn.ResearchData": "Complement version",
+
+  "context-menu.modal.unibaversioning.cancel": "Close",
+
+  "context-menu.modal.unibaversioning.error.version.both": "The item has some versions and is some version. Check the metadata first!",
+
+  "context-menu.modal.unibaversioning.error.version.selfreference": "This item references itself. Check the metadata first!",
+
+  "context-menu.actions.unibaversioning.notification.success.title": "Edit the new submission.",
+
+  "context-menu.actions.unibaversioning.notification.success.content": "Version created. {{here}}.",
+
+  "context-menu.actions.unibaversioning.notification.success.content.Publication": "New submission was created. A fulltext can be uploaded in the submission. {{here}}.",
+
+  "context-menu.actions.unibaversioning.notification.error.title": "Error",
+
+  "context-menu.actions.unibaversioning.notification.error.content": "Some error occured while complementing the version. Try again or report to the FIS Team.",
+
+  "context-menu.actions.unibaversioning.notification.error.content.Publication": "Some error occured while creating the submission. Try again or report to the FIS Team.",
+
+  "context-menu.actions.unibaversioning.process.btn": "Version is being created",
+
+  "context-menu.actions.unibaversioning.process.Publication": "New submission is being created",
+
+  "context-menu.modal.unibaversioning.section.hint.actual": "The current Item",
+
+  "context-menu.modal.unibaversioning.section.nocontent": "No valid versions found.",
+
+  "context-menu.modal.unibaversioning.section.hint.discoverable.not": "not discoverable",
+
+  "context-menu.modal.unibaversioning.section.hint.discoverable": "discoverable",
+
+  "context-menu.modal.unibaversioning.section.loading.errors": "Checking Structure",
+
+  "context-menu.modal.unibaversioning.section.loading.data": "Fetching version group",
+
+  "context-menu.modal.unibaversioning.section.showerrors.btn": "Errors found",
+
+  "context-menu.modal.unibaversioning.section.showerrors.title": "Error description",
+
+  "context-menu.modal.unibaversioning.title": "Change Versioning",
+
+  "context-menu.actions.unibaversioning.change.btn": "Change Versioning",
+
+  "context-menu.actions.unibaversioningchange.notification.error.conflict.title": "Error in version structure",
+
+  "context-menu.actions.unibaversioningchange.notification.error.conflict.content": "Check the version structure for errors and wrong references within the items.",
+
+  "context-menu.actions.unibaversioningchange.notification.error.notfound.title": "Not found",
+
+  "context-menu.actions.unibaversioningchange.notification.error.notfound.content": "The selected item was not found. Perhaps deleted meanwhile.",
+
+  "context-menu.actions.unibaversioningchange.notification.error.forbidden.title": "Forbidden",
+
+  "context-menu.actions.unibaversioningchange.notification.error.forbidden.content": "You have no permissions to change the version. Log in as user with permission.",
+
+  "context-menu.actions.unibaversioningchange.notification.error.title": "Error",
+
+  "context-menu.actions.unibaversioningchange.notification.error.content": "Some Error occured. Contact FIS-Team for further Information",
+
+  "context-menu.actions.unibaversioningchange.notification.success.title": "Version changed",
+
+  "context-menu.actions.unibaversioningchange.notification.success.content": "The main version has been changed. Reload or update Page.",
+
+  "context-menu.actions.unibaversioningchange.notification.error.invalid.title": "Invalid value",
+
+  "context-menu.actions.unibaversioningchange.notification.error.invalid.content": "No value was selected",
+
   "RELATION.Person.researchoutputs.search.results.head": "Research Outputs",
 
   "RELATION.Person.projects.search.results.head": "Projects",

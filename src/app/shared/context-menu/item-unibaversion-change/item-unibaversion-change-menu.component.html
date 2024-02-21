@@ -1,0 +1,86 @@
+<button class="btn dropdown-item" *ngIf="isAuthorized$ | async" (click)="openVersionModal(versionchangemodal)">
+  <span>{{ ('context-menu.actions.unibaversioning.change.btn') | translate}}</span>
+</button>
+
+<ng-template #versionchangemodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">{{ ('context-menu.modal.unibaversioning.title') | translate }}</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
+  <div class="modal-body">
+    <div *ngIf="loadingError$.value === true">
+      <ds-loading [showMessage]="true" [message]="'context-menu.modal.unibaversioning.section.loading.errors' | translate"></ds-loading>
+    </div>
+    <div *ngIf="errors$ | async">
+      <p>
+        <button class="btn btn-warning" type="button" aria-expanded="false" aria-controls="collapseErrors" (click)="collapse.toggle()">
+          <i class="fa fa-bug"></i> {{'context-menu.modal.unibaversioning.section.showerrors.btn' | translate }}
+        </button>
+      </p>
+      <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+        <div class="card card-body">
+          {{'context-menu.modal.unibaversioning.section.showerrors.title' | translate }}
+          <span *ngFor="let error of errors$ | async">
+            <ds-alert [content]="error" [dismissible]="true" [type]="AlertTypeEnum.Error"></ds-alert>
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="loadingData$.value === true">
+      <ds-loading [showMessage]="true" [message]="'context-menu.modal.unibaversioning.section.loading.data' | translate"></ds-loading>
+    </div>
+    <div *ngIf="versiongroupitems$ | async" class="p-2">
+      <span *ngIf="(versiongroupitems$ | async) === null || (versiongroupitems$ | async) === [] ">
+        <ds-alert [content]="'context-menu.modal.unibaversioning.section.nocontent'" [type]="AlertTypeEnum.Info"></ds-alert>
+      </span>
+      <span *ngFor="let item of (versiongroupitems$ | async)">
+        <div class="row">
+          <div class="col-md-1 form-check">
+            <span *ngIf="!item.hasMetadata(versionofMetadata(item))"
+                  class="text-muted" [ngbTooltip]="'context-menu.modal.unibaversioning.section.hint.discoverable' | translate">
+              <i  class="fa fa-eye"></i>
+            </span>
+            <span *ngIf="item.hasMetadata(versionofMetadata(item))"
+                  class="text-muted" [ngbTooltip]="'context-menu.modal.unibaversioning.section.hint.discoverable' | translate">
+              <i  class="fa fa-eye-slash"></i>
+            </span>
+            <i *ngIf="item.uuid === dsoitem.uuid" class="fa fa-thumbtack" [ngbTooltip]="'context-menu.modal.unibaversioning.section.hint.actual' | translate"></i>
+          </div>
+          <div class="col-md-1 form-check">
+            <input type="radio" [(ngModel)]="currentMainVersion" *ngIf="!item.hasMetadata(versionofMetadata(item))"
+                   name="setMainFamilyVersion" id="versionOption_{{item.uuid}}" [value]="item.uuid"
+                   required disabled>
+            <input type="radio" [(ngModel)]="currentMainVersion" *ngIf="item.hasMetadata(versionofMetadata(item))"
+                   name="setMainFamilyVersion" id="versionOption_{{item.uuid}}" [value]="item.uuid"
+                   required>
+          </div>
+          <div class="col-md-10">
+            <ds-item-list-preview [item]="item"></ds-item-list-preview>
+            <hr />
+          </div>
+          <div *ngIf="checkSelfreference(item)">
+            <ds-alert [content]="'context-menu.modal.unibaversioning.error.version.selfreference'" [type]="AlertTypeEnum.Info"></ds-alert>
+          </div>
+          <div *ngIf="item.hasMetadata(versionofMetadata(item)) && item.hasMetadata(hasVersionMetadata(item))">
+            <ds-alert [content]="'context-menu.modal.unibaversioning.error.version.both'" [type]="AlertTypeEnum.Error"></ds-alert>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="space-children-mr">
+      <button type="submit" class="btn btn-primary ng-star-inserted" [disabled]="((versiongroupitems$ | async) === null) || ((versiongroupitems$ | async) === [])" *ngIf="(processing$ | async) === false">{{ ('context-menu.modal.unibaversioning.apply' | translate) }}</button>
+      <button type="button" class="btn btn-primary ng-star-inserted" [disabled]="(processing$ | async)" *ngIf="processing$ | async"><i class="fa fa-spinner fa-spin"></i> {{ ('context-menu.modal.unibaversioning.apply.action' | translate) }}</button>
+      <button type="button" class="btn btn-outline-secondary ng-star-inserted" (click)="close()">{{ ('context-menu.modal.unibaversioning.cancel' | translate) }}</button>
+    </div>
+  </div>
+  </form>
+
+</ng-template>
+
