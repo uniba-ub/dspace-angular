@@ -159,6 +159,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         }));
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
 
+      // TODO: when upload is enabled get the sectipn-specific default maxSize Limit for the my-dspace uploader (submissionuploads) using the SubmissionUploadsConfigDataService
+
       // check if is submission loading
       this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),

@@ -77,6 +77,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
         this.changeDetectorRef.detectChanges();
       }
     );
+
+    // TODO:get the general default maxSize Limit for the my-dspace uploader (submissionuploads) using the SubmissionUploadsConfigDataService
+    this.uploadFilesOptions.maxFileSize = 1;
   }
 
   /**
