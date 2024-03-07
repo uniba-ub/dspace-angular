@@ -3430,6 +3430,8 @@
 
   "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
 
+  "mydspace.upload.upload-failed-maxsizeexceeded": "The size of the file exceeds the maximum file size limit. ",
+
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
   "mydspace.view-btn": "View",

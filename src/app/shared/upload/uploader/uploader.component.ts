@@ -114,6 +114,7 @@ export class UploaderComponent {
       autoUpload: this.uploadFilesOptions.autoUpload,
       method: this.uploadFilesOptions.method,
       queueLimit: this.uploadFilesOptions.maxFileNumber,
+      maxFileSize: this.uploadFilesOptions.maxFileSize
     });
 
     if (isUndefined(this.enableDragOverDocument)) {
@@ -134,6 +135,11 @@ export class UploaderComponent {
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return;};
     }
+    this.uploader.onWhenAddingFileFailed = (item) => {
+      if (this.uploader.options.maxFileSize && item.size > this.uploader.options.maxFileSize) {
+        this.onUploadError.emit({ item: item, response: null, status: '413'});
+      }
+    };
     this.uploader.onBeforeUploadItem = (item) => {
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;

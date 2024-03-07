@@ -108,6 +108,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     if (hasValue(error.status) && error.status === 422) {
       errorMessageKey = 'mydspace.upload.upload-failed-manyentries';
     }
+    if (hasValue(error.status = 413)) {
+      errorMessageKey = 'mydspace.upload.upload-failed-maxsizeexceeded';
+    }
     this.notificationsService.error(null, this.translate.get(errorMessageKey));
   }
 

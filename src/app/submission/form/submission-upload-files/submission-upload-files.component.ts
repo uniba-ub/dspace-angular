@@ -155,8 +155,12 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   /**
    * Show error notification on upload fails
    */
-  public onUploadError() {
-    this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+  public onUploadError($event) {
+    let errorMessageKey = 'submission.sections.upload.upload-failed\'';
+    if (hasValue($event.status = 413)) {
+      errorMessageKey = 'mydspace.upload.upload-failed-maxsizeexceeded';
+    }
+    this.notificationsService.error(null, this.translate.get(errorMessageKey));
   }
 
   /**

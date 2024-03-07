@@ -23,6 +23,11 @@ export class UploaderOptions {
   maxFileNumber: number;
 
   /**
+   *  Set the max number of file (in byte)
+   */
+  maxFileSize: number;
+
+  /**
    * The request method to use for the file upload request
    */
   method: RestRequestMethod = RestRequestMethod.POST;

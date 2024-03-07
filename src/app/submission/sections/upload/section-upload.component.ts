@@ -84,6 +84,12 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   public collectionName: string;
 
   /**
+   * The maxSize number
+   * @type {number}
+   */
+  public maxSize: number;
+
+  /**
    * Default access conditions of this collection
    * @type {Array}
    */
@@ -190,6 +196,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       ).subscribe((config: SubmissionUploadsModel) => {
         this.required$.next(config.required);
         this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
+        this.maxSize = config.maxSize;
         this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
           ? POLICY_DEFAULT_WITH_LIST
           : POLICY_DEFAULT_NO_LIST;
