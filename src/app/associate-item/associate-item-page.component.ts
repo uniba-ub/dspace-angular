@@ -285,8 +285,9 @@ export class AssociateItemPageComponent implements OnInit, OnDestroy {
     q = q.replace(/^ */, '');
     q = q.replace(/ *$/, '');
     q = q.replace(/  +/g, ' ');
-    this.search.searchOptions$.next(Object.assign((this.search.searchConfigService.paginatedSearchOptions as any).value, {query: q}));
-    this.updateSearch((this.search.searchConfigService.paginatedSearchOptions as any).value);
+
+    this.updateSearch(q);
+    this.search.retrieveResults();
     $event.preventDefault();
   }
 
@@ -300,8 +301,9 @@ export class AssociateItemPageComponent implements OnInit, OnDestroy {
     q = q.replace(/^ */, '');
     q = q.replace(/ *$/, '');
     q = q.replace(/  +/g, ' ');
-    this.search.searchOptions$.next(Object.assign((this.search.searchConfigService.paginatedSearchOptions as any).value, {query: q}));
-    this.updateSearch((this.search.searchConfigService.paginatedSearchOptions as any).value);
+
+    this.updateSearch(q);
+    this.search.retrieveResults();
     $event.preventDefault();
   }
 
@@ -316,20 +318,22 @@ export class AssociateItemPageComponent implements OnInit, OnDestroy {
       q += ' *';
     }
 
-    this.search.searchOptions$.next(Object.assign((this.search.searchConfigService.paginatedSearchOptions as any).value, {query: q}));
-    this.updateSearch((this.search.searchConfigService.paginatedSearchOptions as any).value);
+    this.updateSearch(q);
+    this.search.retrieveResults();
     $event.preventDefault();
   }
 
   /**
-   * Updates the search URL
+   * Updates the search URL query and jump to page 1
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-    const queryParams = Object.assign({}, data);
 
     this.router.navigate(this.getSearchLinkParts(), {
-      queryParams: queryParams,
+      queryParams: {
+        query: data as string,
+        [this.search.paginationId + '.page']: 1
+      },
       queryParamsHandling: 'merge'
     });
   }
